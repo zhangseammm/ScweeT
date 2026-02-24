@@ -5,8 +5,10 @@ import sys
 import os
 from datetime import datetime, timezone
 from typing import Any, Optional
+from dotenv import load_dotenv
 
 from apify import Actor
+load_dotenv()
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -281,7 +283,13 @@ async def main() -> None:
         Actor.log.info(f"Starting Scweet actor in '{source_mode}' mode, max_items={max_items}")
 
         if not cookies:
-            Actor.log.warning("No cookies/auth_token provided — most operations require authentication")
+            auth_token = os.environ.get("TWITTER_AUTH_TOKEN")
+            ct0 = os.environ.get("TWITTER_CT0")
+            if auth_token:
+                cookies = {"auth_token": auth_token, "ct0": ct0} if ct0 else auth_token
+                Actor.log.info("Loaded auth token from .env")
+            else:
+                Actor.log.warning("No cookies/auth_token provided — most operations require authentication")
 
         scweet = Scweet.from_sources(
             db_path="scweet_state.db",
