@@ -8,5 +8,5 @@ sqlmodel>=0.0.22
 SQLAlchemy>=2.0
 curl_cffi
 XClientTransaction
-apify>=2.1.0,<3.0.0
+apify>=3.0.0,<4.0.0
 pydantic>=2.9
