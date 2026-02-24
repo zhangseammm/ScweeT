@@ -1,0 +1,13 @@
+{
+  "source_mode": "search",
+  "since": "2024-01-01",
+  "until": "2026-02-01",
+  "search_query": "bitcoin min_faves:20",
+  "any_words": ["etf", "spot"],
+  "exact_phrases": ["market cap"],
+  "exclude_words": ["airdrop"],
+  "hashtags_any": ["bitcoin", "#SOL", "$TSLA"],
+  "lang": "en",
+  "max_items": 10,
+  "search_sort": "Latest"
+}
