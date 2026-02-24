@@ -1,0 +1,180 @@
+{
+  "title": "Scweet - Twitter/X Scraper Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "source_mode": {
+      "title": "Source Mode",
+      "type": "string",
+      "description": "What to scrape: search tweets, profile timeline, followers, following, or user info.",
+      "editor": "select",
+      "default": "search",
+      "enum": ["search", "profile_timeline", "followers", "following", "user_info"],
+      "enumTitles": ["Search Tweets", "Profile Timeline", "Followers", "Following", "User Info"],
+      "sectionCaption": "Scraping Mode",
+      "sectionDescription": "Choose the scraping mode and configure your query."
+    },
+    "search_sort": {
+      "title": "Search Sort",
+      "type": "string",
+      "description": "Sort order for search results. Only applies to 'search' mode.",
+      "editor": "select",
+      "default": "Latest",
+      "enum": ["Latest", "Top"],
+      "enumTitles": ["Latest", "Top"]
+    },
+    "since": {
+      "title": "Since Date",
+      "type": "string",
+      "description": "Start date for tweet search in YYYY-MM-DD format. Required for search mode.",
+      "editor": "textfield",
+      "prefill": "2024-01-01"
+    },
+    "until": {
+      "title": "Until Date",
+      "type": "string",
+      "description": "End date for tweet search in YYYY-MM-DD format. Defaults to today.",
+      "editor": "textfield",
+      "prefill": "2026-02-01"
+    },
+    "max_items": {
+      "title": "Max Items",
+      "type": "integer",
+      "description": "Maximum number of items (tweets, followers, etc.) to scrape.",
+      "editor": "number",
+      "default": 1000,
+      "minimum": 1,
+      "maximum": 100000,
+      "sectionCaption": "Limits"
+    },
+    "search_query": {
+      "title": "Search Query",
+      "type": "string",
+      "description": "Free-text search query. Supports Twitter advanced search operators (e.g. 'bitcoin min_faves:20'). Only applies to 'search' mode.",
+      "editor": "textfield",
+      "prefill": "bitcoin min_faves:20",
+      "sectionCaption": "Search Filters",
+      "sectionDescription": "Fine-tune your search query using structured filters."
+    },
+    "any_words": {
+      "title": "Any of These Words",
+      "type": "array",
+      "description": "Match tweets containing ANY of these words (OR logic).",
+      "editor": "stringList",
+      "items": { "type": "string" },
+      "prefill": ["etf", "spot"]
+    },
+    "exact_phrases": {
+      "title": "Exact Phrases",
+      "type": "array",
+      "description": "Match tweets containing these exact phrases.",
+      "editor": "stringList",
+      "items": { "type": "string" },
+      "prefill": ["market cap"]
+    },
+    "exclude_words": {
+      "title": "Exclude Words",
+      "type": "array",
+      "description": "Exclude tweets containing any of these words.",
+      "editor": "stringList",
+      "items": { "type": "string" },
+      "prefill": ["airdrop"]
+    },
+    "hashtags_any": {
+      "title": "Hashtags (Any)",
+      "type": "array",
+      "description": "Match tweets with ANY of these hashtags. Prefix with # or $ optional.",
+      "editor": "stringList",
+      "items": { "type": "string" },
+      "prefill": ["bitcoin", "#SOL", "$TSLA"]
+    },
+    "profile_urls": {
+      "title": "Profile URLs / Usernames",
+      "type": "array",
+      "description": "Twitter/X profile URLs or usernames. Used for profile_timeline, followers, following, and user_info modes.",
+      "editor": "stringList",
+      "items": { "type": "string" },
+      "prefill": ["openai", "elonmusk"],
+      "sectionCaption": "Profile Targets",
+      "sectionDescription": "Specify profiles for timeline, followers, following, or user info scraping."
+    },
+    "lang": {
+      "title": "Language",
+      "type": "string",
+      "description": "Filter tweets by language code (e.g. 'en', 'es', 'fr'). Only applies to 'search' mode.",
+      "editor": "textfield",
+      "prefill": "en",
+      "sectionCaption": "Quality Filters",
+      "sectionDescription": "Filter results by media, verification status, and other quality signals."
+    },
+    "has_images": {
+      "title": "Has Images",
+      "type": "boolean",
+      "description": "Only include tweets with images.",
+      "default": false
+    },
+    "has_videos": {
+      "title": "Has Videos",
+      "type": "boolean",
+      "description": "Only include tweets with videos.",
+      "default": false
+    },
+    "has_links": {
+      "title": "Has Links",
+      "type": "boolean",
+      "description": "Only include tweets with links.",
+      "default": false
+    },
+    "has_mentions": {
+      "title": "Has Mentions",
+      "type": "boolean",
+      "description": "Only include tweets with @mentions.",
+      "default": false
+    },
+    "has_hashtags": {
+      "title": "Has Hashtags",
+      "type": "boolean",
+      "description": "Only include tweets with hashtags.",
+      "default": false
+    },
+    "verified_only": {
+      "title": "Verified Only",
+      "type": "boolean",
+      "description": "Only include tweets from verified accounts.",
+      "default": false
+    },
+    "blue_verified_only": {
+      "title": "Blue Verified Only",
+      "type": "boolean",
+      "description": "Only include tweets from Blue (premium) verified accounts.",
+      "default": false
+    },
+    "cookies": {
+      "title": "Cookies / Auth Token",
+      "type": "string",
+      "description": "Twitter/X authentication. Can be: an auth_token string, a JSON object with {\"auth_token\": \"...\", \"ct0\": \"...\"}, or a JSON array of account objects. Required for most operations.",
+      "editor": "textarea",
+      "isSecret": true,
+      "sectionCaption": "Authentication",
+      "sectionDescription": "Provide Twitter/X account credentials. At least one auth_token is required."
+    },
+    "proxy": {
+      "title": "Proxy URL",
+      "type": "string",
+      "description": "HTTP proxy URL for API requests (e.g. 'http://user:pass@host:port'). Optional.",
+      "editor": "textfield",
+      "sectionCaption": "Advanced",
+      "sectionDescription": "Advanced configuration options."
+    },
+    "concurrency": {
+      "title": "Concurrency",
+      "type": "integer",
+      "description": "Number of concurrent account workers. Higher values = faster but more aggressive.",
+      "editor": "number",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 20
+    }
+  },
+  "required": ["source_mode"]
+}

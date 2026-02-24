@@ -1,0 +1,48 @@
+{
+  "actorSpecification": 1,
+  "name": "scweet",
+  "title": "Scweet - Twitter/X Scraper",
+  "description": "Scrape tweets, profile timelines, followers, following, and user information from Twitter/X using GraphQL API.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "views": {
+        "tweets": {
+          "title": "Tweets",
+          "transformation": {
+            "fields": [
+              "collected_at_utc",
+              "source_root",
+              "source_value",
+              "user.handle",
+              "user.followers_count",
+              "user.is_blue_verified",
+              "user.verified_type",
+              "tweet.created_at",
+              "tweet.tweet_url",
+              "tweet.text",
+              "tweet.view_count",
+              "tweet.favorite_count",
+              "tweet.quote_count",
+              "tweet.reply_count",
+              "tweet.retweet_count"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "tweet.tweet_url": {
+                "label": "Tweet URL",
+                "format": "link"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
