@@ -30,7 +30,4 @@ Scweet/debug.log
 Scweet/scweet_v1.8.py
 Scweet/user.py
 
-# Comment out these so this branch will track them:
-src/
-tools/
-tests/
+# src/, tools/, tests/ are tracked
